@@ -4,13 +4,13 @@ class HomeController < ApplicationController
   end
 
   def shorten
-    expires_at = params[:expires_at]
     long_url = params[:shorten][:url]
     uri = URI.parse(long_url)
 
     uri = "http://#{uri.to_s}" unless valid? uri
-    Shortener::ShortenedUrl.generate(uri, owner: current_user, expires_at: 24.hours.since)
-    redirect_to root_path
+    unique_key = nil
+    unique_key = Shortener::ShortenedUrl.generate(uri, owner: current_user).unique_key unless uri.to_s.blank?
+    @url = "#{root_url}#{unique_key}"
   end
 
   def valid?(uri)
