@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="col-md-12 col-sm-12">
+    <table class="table">
+      <th>Long URL</th>
+      <th>Created</th>
+      <th>Short URL</th>
+      <th>Clicks</th>
+      <% @urls.each do |url| %>
+        <tr>
+          <td><%= url.url %></td>
+          <td><%= url.created_at %></td>
+          <td><%= link_to "#{root_url}#{url.unique_key}", "#{root_url}#{url.unique_key}" %></td>
+          <td><%= url.use_count %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
